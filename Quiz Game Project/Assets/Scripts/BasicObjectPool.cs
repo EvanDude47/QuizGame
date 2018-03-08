@@ -37,7 +37,7 @@ public class BasicObjectPool : MonoBehaviour
 
         if(pooledObject != null && pooledObject.pool == this)
         {
-            toReturn.SetActive(true);
+            toReturn.SetActive(false);
             inactiveInstances.Push(toReturn);
         }
         else
