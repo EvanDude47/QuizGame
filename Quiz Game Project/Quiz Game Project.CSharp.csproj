@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\DataEditor.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
+    <Compile Include="Assets\Scripts\Network.cs" />
     <Compile Include="Assets\Scripts\QuestionData.cs" />
     <Compile Include="Assets\Scripts\RoundData.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\JSONObject.cs" />

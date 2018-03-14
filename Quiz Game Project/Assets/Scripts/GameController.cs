@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
     public GameObject endGameDisplay;
 
     public BasicObjectPool answerButtonPool;
-    private DataController dataController;
+    private Network network;
     private RoundData roundData;
     private QuestionData[] questionPool;
     private bool isRoundActive;
@@ -29,8 +29,8 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start()
     {
-        dataController = FindObjectOfType<DataController>();
-        roundData = dataController.GetCurrentRoundData();
+        network = FindObjectOfType<Network>();
+        roundData = network.GetRoundData();
         questionPool = roundData.questions;
 
         playerScore = 0;

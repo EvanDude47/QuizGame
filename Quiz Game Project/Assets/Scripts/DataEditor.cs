@@ -13,6 +13,8 @@ public class DataEditor : EditorWindow
     private GameObject server;
     private SocketIOComponent socket;
 
+    private Vector2 scrollPos;
+
     [MenuItem("Window/Game Data Editor")]
     static void Init()
     {
@@ -21,6 +23,10 @@ public class DataEditor : EditorWindow
 
     void OnGUI()
     {
+        EditorGUILayout.BeginVertical();
+
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(EditorWindow.GetWindow(typeof(DataEditor)).position.width), GUILayout.Height(EditorWindow.GetWindow(typeof(DataEditor)).position.height));
+
         if (roundData != null)
         {
             //Display data from json on client side
@@ -44,6 +50,9 @@ public class DataEditor : EditorWindow
         {
             LoadGameData();
         }
+
+        EditorGUILayout.EndScrollView();
+        EditorGUILayout.EndVertical();
     }
 
     //Load data from json
