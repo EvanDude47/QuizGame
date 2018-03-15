@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿#if (UNITY_EDITOR)
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -91,3 +93,4 @@ public class DataEditor : EditorWindow
         socket.Emit("send data", new JSONObject(jsonObj));
     }
 }
+#endif
