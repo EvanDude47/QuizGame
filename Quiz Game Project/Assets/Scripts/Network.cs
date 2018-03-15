@@ -18,22 +18,6 @@ public class Network : MonoBehaviour
         socket = GetComponent<SocketIOComponent>();
         socket.On("open", OnConnected);
         socket.On("receive data", OnReceive);
-
-        roundData = new RoundData();
-
-        roundData.name = "Egg";
-        roundData.timeLimitInSeconds = 10;
-        roundData.pointsAddedForCorrectAnswer = 10;
-        roundData.questions = new QuestionData[1];
-        roundData.questions[0] = new QuestionData();
-        roundData.questions[0].questionText = "Bees?";
-        roundData.questions[0].answers = new AnswerData[2];
-        roundData.questions[0].answers[0] = new AnswerData();
-        roundData.questions[0].answers[0].answerText = "yes bees";
-        roundData.questions[0].answers[0].isCorrect = true;
-        roundData.questions[0].answers[1] = new AnswerData();
-        roundData.questions[0].answers[1].answerText = "no bees";
-        roundData.questions[0].answers[1].isCorrect = false;
     }
 
     //Get data from MongoDB on connection
@@ -64,7 +48,6 @@ public class Network : MonoBehaviour
             roundData.questions[x].questionText = GetStringFromJson(gameData["questions"].list[x], "questionText");
 
             answerSize = gameData["questions"].list[x].GetField("answers").Count;
-
             roundData.questions[x].answers = new AnswerData[answerSize];
 
             for(int y = 0; y < answerSize; y++)

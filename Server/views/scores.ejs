@@ -1,0 +1,20 @@
+<% include _header %>
+
+<% if(ScoreData.length){ %>
+    <% ScoreData.forEach(function(score){ %>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <%= score.name %>
+        </div>
+        <div class="panel-body">
+            <h5 style="margin-bottom:-10px">Score: <%= score.score %></h5>
+            <hr></hr>
+            <h5 style="margin-top:-10px">Time: <%= score.time %></h5>
+        </div>
+    </div>
+    <% }) %>
+<% } else { %>
+    <p>No scores found!</p>
+<% } %>
+
+<% include _footer %>

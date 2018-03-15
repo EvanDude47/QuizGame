@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using SocketIO;
 
 public class GameController : MonoBehaviour
 {
     public Text questionText;
     public Text scoreText;
     public Text timeText;
-    public int playerScore;
+    private int playerScore;
     private float timeRemaining;
 
     public Transform answerParent;
@@ -20,11 +21,27 @@ public class GameController : MonoBehaviour
     public BasicObjectPool answerButtonPool;
     private Network network;
     private RoundData roundData;
+    private GameObject server;
+    private SocketIOComponent socket;
     private QuestionData[] questionPool;
     private bool isRoundActive;
     private int questionIndex;
 
     private List<GameObject> answerButtonObjects = new List<GameObject>();
+
+    struct submissionData
+    {
+        public string name;
+        public int score;
+        public int time;
+
+        public submissionData(string name, int score, int time)
+        {
+            this.name = name;
+            this.score = score;
+            this.time = time;
+        }
+    }
 
 	// Use this for initialization
 	void Start()
@@ -109,6 +126,23 @@ public class GameController : MonoBehaviour
     private void UpdateTime()
     {
         timeText.text = "Time:" + Mathf.Round(timeRemaining).ToString();
+    }
+
+    //Send player score to database
+    public void SubmitScore()
+    {
+        string playerName = GameObject.Find("NameField").GetComponent<InputField>().text;
+
+        submissionData submission = new submissionData(playerName, playerScore, (int)timeRemaining);
+
+        string jsonObj = JsonUtility.ToJson(submission);
+
+        server = GameObject.Find("Server");
+        socket = server.GetComponent<SocketIOComponent>();
+
+        socket.Emit("push score", new JSONObject(jsonObj));
+
+        SceneManager.LoadScene("MenuScreen");
     }
 	
 	// Update is called once per frame
